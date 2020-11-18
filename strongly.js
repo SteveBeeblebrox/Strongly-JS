@@ -22,6 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 class StronglyJS {
+  static #TYPES = {
+    
+  }
+  static get TYPES() {return {...this.#TYPES}}
   static strongProp(on, name, strongValue) {
     Object.defineProperty(on, name, {
       get: function() {
