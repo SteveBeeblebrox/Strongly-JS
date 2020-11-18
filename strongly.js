@@ -23,7 +23,7 @@ SOFTWARE.
 */
 class StronglyJS {
   static #TYPES = {
-    
+    __proto__: null
   }
   static get TYPES() {return {...this.#TYPES}}
   static strongProp(on, name, strongValue) {
