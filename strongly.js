@@ -41,12 +41,12 @@ class StronglyJS {
 }
 class StronglyJSType {
   #a; #b; #c;
-  constructor(a, b = typeof a, c = (o) => typeof o === typeof a) {
-    if(typeof b !== 'string') throw new TypeError(`Cannot convert '${typeof b}' to 'string'`);
-    if(typeof c !== 'function') throw new TypeError(`Cannot convert '${typeof c}' to 'string'`);
-    this.#a = a;
-    this.#b = b;
-    this.#c = c;
+  constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback) {
+    if(typeof name !== 'string') throw new TypeError(`Cannot convert '${typeof b}' to 'string'`);
+    if(typeof test !== 'function') throw new TypeError(`Cannot convert '${typeof c}' to 'string'`);
+    this.#a = fallback;
+    this.#b = name;
+    this.#c = test;
   }
   get fallback() { return this.#a}
   get name() { return this.#b}
