@@ -39,3 +39,16 @@ class StronglyJS {
     return on[name];
   }
 }
+class StronglyJSType {
+  #a; #b; #c;
+  constructor(a, b = typeof a, c = (o) => typeof o === typeof a) {
+    if(typeof b !== 'string') throw new TypeError(`Cannot convert '${typeof b}' to 'string'`);
+    if(typeof c !== 'function') throw new TypeError(`Cannot convert '${typeof c}' to 'string'`);
+    this.#a = a;
+    this.#b = b;
+    this.#c = c;
+  }
+  get fallback() { return this.#a}
+  get name() { return this.#b}
+  allows(o) {return this.#c(o)}
+}
