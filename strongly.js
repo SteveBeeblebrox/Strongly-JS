@@ -43,7 +43,9 @@ class StronglyJS {
 	FUNCTION: new StronglyJSType(function() {}),
 	BIGINT: new StronglyJSType(0n),
 	UNDEFINED: new StronglyJSType(undefined),
-	SYMBOL: new StronglyJSType(undefined, 'symbol', (o) => typeof o === 'symbol')
+	SYMBOL: new StronglyJSType(undefined, 'symbol', (o) => typeof o === 'symbol'),
+	ARRAY: new StronglyJSType([], 'array', (o) => o instanceof Array),
+	REGEXP: new StronglyJSType(/.*/g, 'regexp', (o) => o instanceof RegExp)
   }
   static get TYPES() {return {...this.#TYPES}}
   static strongProp(on, name, strongValue) {
