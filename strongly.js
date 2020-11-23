@@ -49,7 +49,9 @@ class StronglyJS {
 	ELEMENT: new StronglyJSType(undefined, 'element', (o) => o instanceof HTMLElement),
 	ANY: new StronglyJSType({}, 'any', (o) => true),
 	ARRAYOF: (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i))),
-	NULLABLE: (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o))
+	NULLABLE: (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o)),
+	NUMERICAL: new StronglyJSType(0, 'numerical', (o) => typeof o === 'number' || typeof o === 'bigint'),
+	INTEGER: new StronglyJSType(0, 'integer', Number.isInteger)
   }
   static get TYPES() {return {...this.#TYPES}}
   static strongProp(on, name, strongValue) {
