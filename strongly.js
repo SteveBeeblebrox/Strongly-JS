@@ -54,16 +54,15 @@ class StronglyJS {
 	INTEGER: new StronglyJSType(0, 'integer', Number.isInteger)
   }
   static get TYPES() {return {...this.#TYPES}}
-  static strongProp(on, name, strongValue) {
+  static strongProp(on, name, type, value = type.fallback) {
     Object.defineProperty(on, name, {
       get: function() {
-        return strongValue;
+        return value;
       },
-      set: function(value) {
-         if(typeof value !== typeof strongValue) throw new TypeError();
-         strongValue = value;
+      set: function(newValue) {
+         if(!type.allows(newValue)) throw new TypeError(`Value '${newValue}' is not assignable to type '${type.name}'`);
+         value = newValue;
       }
     });
-    return on[name];
   }
 }
