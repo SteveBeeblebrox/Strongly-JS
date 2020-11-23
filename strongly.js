@@ -55,6 +55,7 @@ class StronglyJS {
   }
   static get TYPES() {return {...this.#TYPES}}
   static strongProp(on, name, type, value = type.fallback) {
+    if(!type.allows(value)) throw new TypeError(`Default value '${value}' is not assignable to type '${type.name}'`);
     Object.defineProperty(on, name, {
       get: function() {
         return value;
