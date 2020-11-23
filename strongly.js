@@ -47,8 +47,9 @@ class StronglyJS {
 	ARRAY: new StronglyJSType([], 'array', (o) => o instanceof Array),
 	REGEXP: new StronglyJSType(/.*/g, 'regexp', (o) => o instanceof RegExp),
 	ELEMENT: new StronglyJSType(undefined, 'element', (o) => o instanceof HTMLElement),
-      	ANY: new StronglyJSType({}, 'any', (o) => true),
-	ARRAYOF: (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i)))
+	ANY: new StronglyJSType({}, 'any', (o) => true),
+	ARRAYOF: (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i))),
+	NULLABLE: (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o))
   }
   static get TYPES() {return {...this.#TYPES}}
   static strongProp(on, name, strongValue) {
