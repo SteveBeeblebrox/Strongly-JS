@@ -66,4 +66,10 @@ class StronglyJS {
       }
     });
   }
+  static strongFunc(on, name, func, argTypes, returnType) {
+      on[name] = function() {
+          for(let i = 0; i < argTypes.length; i++) if(!argTypes[i].allows(arguments[i])) throw new TypeError(`Argument '${arguments[i]}' is not assignable to type '${argTypes[i].name}'`);
+          return func(...arguments)
+      }
+  }
 }
