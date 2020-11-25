@@ -19,9 +19,9 @@ Strongly typed functions and variables for vanilla JavaScript
 ### Complex
 + ARRAYOF
 + NULLABLE
-## Functions
+## Strongly Typed Functions
 ### Creation
 #### Arguments
-## Parameters
+## Strongly Typed Parameters
 ### Creation
 #### Arguments
