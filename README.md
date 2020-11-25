@@ -3,22 +3,25 @@ Strongly typed functions and variables for vanilla JavaScript
 ## Built-In Types
 ### Simple
 + NUMBER
++ BIGINT
++ NUMERICAL
++ INTEGER
 + BOOLEAN
 + STRING
-+ FUNCTION
-+ BIGINT
-+ UNDEFINED
 + SYMBOL
 + ARRAY
 + REGEXP
 + ELEMENT
++ FUNCTION
 + ANY
-+ NUMERICAL
-+ INTEGER
++ UNDEFINED
 + NULL
 ### Complex
 + ARRAYOF
 + NULLABLE
 ## Functions
-
+### Creation
+#### Arguments
 ## Parameters
+### Creation
+#### Arguments
