@@ -37,8 +37,8 @@ class StronglyJSType {
 class StronglyJS {
   static #TYPES = {
     __proto__: null,
-	NUMBER: new StronglyJSType(0),
-	BOOLEAN: new StronglyJSType(false),
+	NUMBER: new StronglyJSType(0, 'number', (o) => typeof o === 'number' || o instanceof Number),
+	BOOLEAN: new StronglyJSType(false, 'boolean', (o) => typeof o === 'boolean' || o instanceof Boolean),
 	STRING: new StronglyJSType('', 'string', (o) => typeof o === 'string' || o instanceof String),
 	FUNCTION: new StronglyJSType(function() {}),
 	BIGINT: new StronglyJSType(0n),
