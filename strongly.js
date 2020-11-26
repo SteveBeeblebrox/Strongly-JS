@@ -38,20 +38,20 @@ class StronglyJS {
   static #TYPES = {
     __proto__: null,
 	NUMBER: new StronglyJSType(0, 'number', (o) => typeof o === 'number' || o instanceof Number),
+	BIGINT: new StronglyJSType(0n),
+	NUMERICAL: new StronglyJSType(0, 'numerical', (o) => typeof o === 'number' || typeof o === 'bigint' || o instanceof Number),
+	INTEGER: new StronglyJSType(0, 'integer', Number.isInteger),
 	BOOLEAN: new StronglyJSType(false, 'boolean', (o) => typeof o === 'boolean' || o instanceof Boolean),
 	STRING: new StronglyJSType('', 'string', (o) => typeof o === 'string' || o instanceof String),
-	FUNCTION: new StronglyJSType(function() {}),
-	BIGINT: new StronglyJSType(0n),
-	UNDEFINED: new StronglyJSType(undefined),
 	SYMBOL: new StronglyJSType(undefined, 'symbol', (o) => typeof o === 'symbol'),
 	ARRAY: new StronglyJSType([], 'array', (o) => o instanceof Array),
 	REGEXP: new StronglyJSType(/.*/g, 'regexp', (o) => o instanceof RegExp),
 	ELEMENT: new StronglyJSType(undefined, 'element', (o) => o instanceof HTMLElement),
+	FUNCTION: new StronglyJSType(function() {}),
 	ANY: new StronglyJSType({}, 'any', (o) => true),
 	ARRAYOF: (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i))),
 	NULLABLE: (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o)),
-	NUMERICAL: new StronglyJSType(0, 'numerical', (o) => typeof o === 'number' || typeof o === 'bigint' || o instanceof Number),
-	INTEGER: new StronglyJSType(0, 'integer', Number.isInteger),
+	UNDEFINED: new StronglyJSType(undefined),
 	NULL: new StronglyJSType(null, 'null', (o) => o === null)
   }
   static get TYPES() {return {...this.#TYPES}}
