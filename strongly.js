@@ -39,7 +39,7 @@ class StronglyJS {
     __proto__: null,
 	NUMBER: new StronglyJSType(0),
 	BOOLEAN: new StronglyJSType(false),
-	STRING: new StronglyJSType(''),
+	STRING: new StronglyJSType('', 'string', (o) => typeof o === 'string' || o instanceof String),
 	FUNCTION: new StronglyJSType(function() {}),
 	BIGINT: new StronglyJSType(0n),
 	UNDEFINED: new StronglyJSType(undefined),
