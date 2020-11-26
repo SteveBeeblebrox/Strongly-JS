@@ -11,7 +11,7 @@ Strongly typed functions and variables for vanilla JavaScript
 + SYMBOL: Allows any symbol object.
 + ARRAY: Allows an array of any length containing any values.
 + REGEXP: Allows any Regex object (Literal or object).
-+ ELEMENT Allows any HTML DOM Element.
++ ELEMENT: Allows any HTML DOM Element.
 + FUNCTION: Allows any type of function (Including classes).
 + ANY: Allows any value (Type is not checked).
 + UNDEFINED: Only allows undefined or no value.
