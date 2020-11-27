@@ -2,23 +2,25 @@
 Strongly typed functions and variables for vanilla JavaScript
 ## Built-In Types
 ### Simple
-+ NUMBER: Allows any number (Including NaN and Infinity).
-+ BIGINT: Allows any BigInt object.
-+ NUMERICAL: Allows any number or BigInt object (Including NaN and Infinity).
-+ INTEGER: Allows any number with no non-zero decimals (Does not allow NaN or Infinity).
-+ BOOLEAN: Allows any true or false value or an expresion that evaluates to true or false.
-+ STRING: Allows any form of JavaScript string (Literal or object).
-+ SYMBOL: Allows any symbol object.
-+ ARRAY: Allows an array of any length containing any values.
-+ REGEXP: Allows any Regex object (Literal or object).
-+ ELEMENT: Allows any HTML DOM Element.
-+ FUNCTION: Allows any type of function (Including classes).
-+ ANY: Allows any value (Type is not checked).
-+ UNDEFINED: Only allows undefined or no value.
-+ NULL: Only allows null.
+Simple types are predefined filters that allow certain values.
++ `NUMBER`: This type allows any number (Including NaN and Infinity).
++ `BIGINT`: This type allows any BigInt object.
++ `NUMERICAL`: This simple type allows any number or BigInt object (Including NaN and Infinity).
++ `INTEGER`: This type allows any number with no non-zero decimals (Does not allow NaN or Infinity).
++ `BOOLEAN`: This type allows any true or false value or an expresion that evaluates to true or false.
++ `STRING`: This type simple allows any form of JavaScript string (Literal or object).
++ `SYMBOL`: This type allows any symbol object.
++ `ARRAY`: This type allows an array of any length containing any values.
++ `REGEXP`: This simple type allows any Regexp object (Literal or object).
++ `ELEMENT`: This type allows any HTML DOM Element.
++ `FUNCTION`: This type allows any type of function (Including classes).
++ `ANY`: This type allows any value (Type is not checked).
++ `UNDEFINED`: This simple type allows only `undefined` or no value.
++ `NULL`: This type only allows `null`.
 ### Complex
-+ ARRAYOF
-+ NULLABLE
+Complex types are actually just helper functions that give more control over allowed values. All of the following reuire one (or more) arguments. Complex types can be chained together.
++ `ARRAYOF`: Unlike the `ARRAY` type which allows an array containing any values, the `ARRAYOF` complex type restricts what values the array can contain based off of the type passed to it.
++ `NULLABLE`: This complex type allows `null` or whatever value is passed to it.
 ## Strongly Typed Functions
 ### Creation
 #### Arguments
