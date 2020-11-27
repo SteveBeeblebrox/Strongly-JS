@@ -3,10 +3,10 @@ Strongly typed functions and variables for vanilla JavaScript
 ## Built-In Types
 ### Simple
 Simple types are predefined filters that allow certain values.
-+ `NUMBER`: This type allows any number (Including NaN and Infinity).
++ `NUMBER`: This type allows any number (Including `NaN` and `Infinity`).
 + `BIGINT`: This type allows any BigInt object.
-+ `NUMERICAL`: This simple type allows any number or BigInt object (Including NaN and Infinity).
-+ `INTEGER`: This type allows any number with no non-zero decimals (Does not allow NaN or Infinity).
++ `NUMERICAL`: This simple type allows any number or BigInt object (Including `NaN` and `Infinity`).
++ `INTEGER`: This type allows any number with no non-zero decimals (Does not allow `NaN` or `Infinity`).
 + `BOOLEAN`: This type allows any true or false value or an expresion that evaluates to true or false.
 + `STRING`: This type simple allows any form of JavaScript string (Literal or object).
 + `SYMBOL`: This type allows any symbol object.
