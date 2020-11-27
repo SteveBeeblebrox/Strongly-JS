@@ -21,6 +21,7 @@ Simple types are predefined filters that allow certain values.
 Complex types are actually just helper functions that give more control over allowed values. All of the following reuire one (or more) arguments. Complex types can be chained together.
 + `ARRAYOF`: Unlike the `ARRAY` type which allows an array containing any values, the `ARRAYOF` complex type restricts what values the array can contain based off of the type passed to it.
 + `NULLABLE`: This complex type allows `null` or whatever value is passed to it.
++ `TUPLEOF`: The tuple type is a work in progress.
 ## Strongly Typed Functions
 ### Creation
 #### Arguments
