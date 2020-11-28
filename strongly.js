@@ -51,6 +51,8 @@ class StronglyJS {
     REGEXP: new StronglyJSType(/.*/g, 'regexp', (o) => o instanceof RegExp),
     ELEMENT: new StronglyJSType(undefined, 'element', (o) => o instanceof HTMLElement),
     FUNCTION: new StronglyJSType(function() {}),
+    ASYNCFUNCTION: new StronglyJSType(async function() {}, 'async function', (o) => o instanceof (async function () {}).constructor),
+    GENERATORFUNCTION: new StronglyJSType(function*() {}, 'generator function', (o) => o instanceof (function* () {}).constructor),
     ANY: new StronglyJSType({}, 'any', (o) => true),
     ARRAYOF: (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i))),
     NULLABLE: (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o)),
