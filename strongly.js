@@ -22,17 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 class StronglyJSType {
-  #a; #b; #c;
-  constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback) {
+  #a; #b; #c; #d;
+  constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback, wrapper = (o) => o) {
     if(typeof name !== 'string') throw new TypeError(`Cannot convert '${typeof b}' to 'string'`);
     if(typeof test !== 'function') throw new TypeError(`Cannot convert '${typeof c}' to 'string'`);
     this.#a = fallback;
     this.#b = name;
     this.#c = test;
+    this.#d = wrapper;
   }
-  get fallback() { return this.#a}
-  get name() { return this.#b}
+  get fallback() {return this.#a}
+  get name() {return this.#b}
   allows(o) {return this.#c(o)}
+  wrap(o) {return this.#d(o)}
 }
 class StronglyJS {
   static #TYPES = {
