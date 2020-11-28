@@ -14,6 +14,8 @@ Simple types are predefined filters that allow certain values.
 + `REGEXP`: This simple type allows any Regexp object (Literal or object).
 + `ELEMENT`: This type allows any HTML DOM Element.
 + `FUNCTION`: This type allows any type of function (Including classes).
++ `ASYNCFUNCTION`: This type allows any async function.
++ `GENERATORFUNCTION`: This type allows any generator function.
 + `ANY`: This type allows any value (Type is not checked).
 + `UNDEFINED`: This simple type allows only `undefined` or no value.
 + `NULL`: This type only allows `null`.
