@@ -24,8 +24,9 @@ SOFTWARE.
 class StronglyJSType {
   #f; #n; #t; #w;
   constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback, wrapper = (o) => o) {
-    if(typeof name !== 'string') throw new TypeError(`Cannot convert '${typeof b}' to 'string'`);
-    if(typeof test !== 'function') throw new TypeError(`Cannot convert '${typeof c}' to 'string'`);
+    if(typeof name !== 'string') throw new TypeError(`Cannot convert '${name}' to 'string'`);
+    if(typeof test !== 'function') throw new TypeError(`Cannot convert '${test}' to 'function'`);
+    if(typeof wrapper !== 'function') throw new TypeError(`Cannot convert '${wrapper}' to 'function'`);
     this.#f = fallback;
     this.#n = name;
     this.#t = test;
