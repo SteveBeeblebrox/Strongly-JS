@@ -65,7 +65,7 @@ class StronglyJS {
     if(!type.allows(value)) throw new TypeError(`Default value '${value}' is not assignable to type '${type.name}'`);
     Object.defineProperty(on, name, {
       get: function() {
-        return value;
+        return type.wrap(value);
       },
       set: function(newValue) {
          if(!type.allows(newValue)) throw new TypeError(`Value '${newValue}' is not assignable to type '${type.name}'`);
