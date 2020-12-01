@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 class StronglyJSType {
-  #f; #n; #t; #w;
-  constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback, wrapper = (o) => o) {
+  #f; #n; #t; #w; #d;
+  constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback, wrapper = (o) => o, data = {}) {
     if(typeof name !== 'string') throw new TypeError(`Cannot convert '${name}' to 'string'`);
     if(typeof test !== 'function') throw new TypeError(`Cannot convert '${test}' to 'function'`);
     if(typeof wrapper !== 'function') throw new TypeError(`Cannot convert '${wrapper}' to 'function'`);
@@ -31,9 +31,11 @@ class StronglyJSType {
     this.#n = name;
     this.#t = test;
     this.#w = wrapper;
+    this.#d = data;
   }
   get fallback() {return this.#f}
   get name() {return this.#n}
+  get data() {return this.#d}
   allows(o) {return this.#t(o)}
   wrap(o) {return this.#w(o)}
 }
