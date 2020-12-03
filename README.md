@@ -26,7 +26,9 @@ Complex types are actually just helper functions that give more control over all
 + `TUPLEOF`: The tuple restricts the types of values in an array and keeps the length fixed. Additionally, unlike the `ARRAYOF` type, each value in a tuple can be assigned a seperate type. This is achieved by passing the types (in order) to the complex type. In addition to reassigning the whole array, other operations such as modifiying part of the tuple at an index are also subject to type checking.
 ## Strongly Typed Functions
 ### Creation
+Strongly typed functionc an be created using the static method `strongFunc` inside of `StronglyJS`.
 #### Arguments
-## Strongly Typed Parameters
+## Strongly Typed Properties
+Strongly typed properties can be created using the static method `strongProp` inside of `StronglyJS`.
 ### Creation
 #### Arguments
