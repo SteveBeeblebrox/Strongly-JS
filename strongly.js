@@ -75,7 +75,7 @@ class StronglyJS {
     NULL: new StronglyJSType(null, 'null', (o) => o === null)
   }
   static get TYPES() {return {...this.#TYPES}}
-  static strongProp(on, name, type, value = type.fallback) {
+  static defineProperty(on, name, type, value = type.fallback) {
     if(!type.allows(value)) throw new TypeError(`Default value '${value}' is not assignable to type '${type.name}'`);
     Object.defineProperty(on, name, {
       get: function() {
@@ -87,7 +87,7 @@ class StronglyJS {
       }
     });
   }
-  static strongFunc(on, name, func, argTypes, returnType) {
+  static defineFunction(on, name, func, argTypes, returnType) {
     on[name] = function() {
       for(let i = 0; i < argTypes.length; i++) if(!argTypes[i].allows(arguments[i])) throw new TypeError(`Argument '${arguments[i]}' is not assignable to type '${argTypes[i].name}'`);
         let value = func(...arguments);
