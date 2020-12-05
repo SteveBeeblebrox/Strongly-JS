@@ -16,6 +16,8 @@ Simple types are predefined filters that allow certain values.
 + `FUNCTION`: This type allows any type of function (Including classes).
 + `ASYNCFUNCTION`: This type allows any async function.
 + `GENERATORFUNCTION`: This type allows any generator function.
++ `OBJECT`: This type allows any object.
++ `SIMPLEOBJECT`: This type allows any object that has the default object prototype somewhere in its prototype chain. This means the object will have methods like `toString` (unless they were deleted).
 + `ANY`: This type allows any value (Type is not checked).
 + `UNDEFINED`: This simple type allows only `undefined` or no value.
 + `NULL`: This type only allows `null`.
