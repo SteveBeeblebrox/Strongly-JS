@@ -25,9 +25,9 @@ class StronglyJSType {
   #f; #n; #t; #w; #d;
   static valueAsString(o) { try { return `${o}`; } catch { return 'unknown'; } }
   constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback, wrapper = (o) => o, data = {}) {
-    if(typeof name !== 'string') throw new TypeError(`Cannot convert '${name?.toString?.() ?? 'unknown'}' to 'string'`);
-    if(typeof test !== 'function') throw new TypeError(`Cannot convert '${test?.toString?.() ?? 'unknown'}' to 'function'`);
-    if(typeof wrapper !== 'function') throw new TypeError(`Cannot convert '${wrapper?.toString?.() ?? 'unknown'}' to 'function'`);
+    if(typeof name !== 'string') throw new TypeError(`Cannot convert '${StronglyJSType.valueAsString(name)}' to 'string'`);
+    if(typeof test !== 'function') throw new TypeError(`Cannot convert '${StronglyJSType.valueAsString(test)}' to 'function'`);
+    if(typeof wrapper !== 'function') throw new TypeError(`Cannot convert '${StronglyJSType.valueAsString(wrapper)}' to 'function'`);
     this.#f = fallback;
     this.#n = name;
     this.#t = test;
@@ -67,11 +67,11 @@ class StronglyJS {
           let i = parseInt(p);
           if(Number.isInteger(i) && i < this.data.length && i > -1)
             if(this.data[i].allows(v)) o[p] = v;
-            else throw new TypeError(`Value '${v?.toString?.() ?? 'unknown'}' is not assignable to type '${this.data[i].name}'`);
-          else throw new TypeError(`Cannot modify property '${p?.toString?.() ?? 'unknown'}' of '${this.name}'`);
+            else throw new TypeError(`Value '${StronglyJSType.valueAsString(v)}' is not assignable to type '${this.data[i].name}'`);
+          else throw new TypeError(`Cannot modify property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
       },
       deleteProperty: (o, p) => {
-          throw new TypeError(`Cannot delete property '${p?.toString?.() ?? 'unknown'}' of '${this.name}'`);
+          throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
       }
     })}, t),
     UNDEFINED: new StronglyJSType(undefined),
@@ -79,22 +79,22 @@ class StronglyJS {
   }
   static get TYPES() {return {...this.#TYPES}}
   static defineProperty(on, name, type, value = type.fallback) {
-    if(!type.allows(value)) throw new TypeError(`Default value '${value?.toString?.() ?? 'unknown'}' is not assignable to type '${type.name}'`);
+    if(!type.allows(value)) throw new TypeError(`Default value '${StronglyJSType.valueAsString(value)}' is not assignable to type '${type.name}'`);
     Object.defineProperty(on, name, {
       get: function() {
         return type.wrap(value);
       },
       set: function(newValue) {
-         if(!type.allows(newValue)) throw new TypeError(`Value '${newValue?.toString?.() ?? 'unknown'}' is not assignable to type '${type.name}'`);
+         if(!type.allows(newValue)) throw new TypeError(`Value '${StronglyJSType.valueAsString(newValue)}' is not assignable to type '${type.name}'`);
          value = newValue;
       }
     });
   }
   static defineFunction(on, name, func, argTypes, returnType) {
     on[name] = function() {
-      for(let i = 0; i < argTypes.length; i++) if(!argTypes[i].allows(arguments[i])) throw new TypeError(`Argument '${arguments[i]?.toString?.() ?? 'unknown'}' is not assignable to type '${argTypes[i].name}'`);
+      for(let i = 0; i < argTypes.length; i++) if(!argTypes[i].allows(arguments[i])) throw new TypeError(`Argument '${StronglyJSType.valueAsString(arguments[i])}' is not assignable to type '${argTypes[i].name}'`);
         let value = func(...arguments);
-        if(!returnType.allows(value)) throw new TypeError(`Return value '${value?.toString?.() ?? 'unknown'}' is not assignable to type '${returnType.name}'`);
+        if(!returnType.allows(value)) throw new TypeError(`Return value '${StronglyJSType.valueAsString(value)}' is not assignable to type '${returnType.name}'`);
         return value;
     }
   }
