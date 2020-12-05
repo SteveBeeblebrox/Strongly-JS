@@ -55,6 +55,8 @@ class StronglyJS {
     FUNCTION: new StronglyJSType(function() {}),
     ASYNCFUNCTION: new StronglyJSType(async function() {}, 'async function', (o) => o instanceof (async function () {}).constructor),
     GENERATORFUNCTION: new StronglyJSType(function*() {}, 'generator function', (o) => o instanceof (function* () {}).constructor),
+    OBJECT: new StronglyJSType({}),
+    SIMPLEOBJECT: new StronglyJSType({}, 'simple object', (o) => o.__proto__ === Object.prototype),
     ANY: new StronglyJSType({}, 'any', (o) => true),
     ARRAYOF: (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i))),
     NULLABLE: (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o)),
