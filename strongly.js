@@ -40,44 +40,42 @@ class StronglyJSType {
   allows(o) {return this.#t(o)}
   wrap(o) {return this.#w(o)}
 }
+class StronglyJSTypes {
+  static NUMBER = new StronglyJSType(0, 'number', (o) => typeof o === 'number' || o instanceof Number)
+  static BIGINT = new StronglyJSType(0n)
+  static NUMERICAL = new StronglyJSType(0, 'numerical', (o) => typeof o === 'number' || typeof o === 'bigint' || o instanceof Number)
+  static INTEGER = new StronglyJSType(0, 'integer', Number.isInteger)
+  static BOOLEAN = new StronglyJSType(false, 'boolean', (o) => typeof o === 'boolean' || o instanceof Boolean)
+  static STRING = new StronglyJSType('', 'string', (o) => typeof o === 'string' || o instanceof String)
+  static SYMBOL = new StronglyJSType(undefined, 'symbol', (o) => typeof o === 'symbol')
+  static ARRAY = new StronglyJSType([], 'array', (o) => o instanceof Array)
+  static REGEXP = new StronglyJSType(/.*/g, 'regexp', (o) => o instanceof RegExp)
+  static ELEMENT = new StronglyJSType(undefined, 'element', (o) => o instanceof HTMLElement)
+  static FUNCTION = new StronglyJSType(function() {})
+  static ASYNCFUNCTION = new StronglyJSType(async function() {}, 'async function', (o) => o instanceof (async function () {}).constructor)
+  static GENERATORFUNCTION = new StronglyJSType(function*() {}, 'generator function', (o) => o instanceof (function* () {}).constructor)
+  static OBJECT = new StronglyJSType({})
+  static SIMPLEOBJECT = new StronglyJSType({}, 'simple object', (o) => Object.prototype.isPrototypeOf(o))
+  static ANY = new StronglyJSType({}, 'any', (o) => true)
+  static ARRAYOF = (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i)))
+  static NULLABLE = (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o))
+  static TUPLEOF = (...t) => new StronglyJSType(t.map(o => o.fallback), t.map(o => o.name).join(', ') + ' tuple', (o) => o instanceof Array && t.every((i, n) => i.allows(o[n])),
+  function(l) {return new Proxy(l, {
+    set: (o, p, v) => {
+        let i = parseInt(p);
+        if(Number.isInteger(i) && i < this.data.length && i > -1)
+          if(this.data[i].allows(v)) o[p] = v;
+          else throw new TypeError(`Value '${StronglyJSType.valueAsString(v)}' is not assignable to type '${this.data[i].name}'`);
+        else throw new TypeError(`Cannot modify property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
+    },
+    deleteProperty: (o, p) => {
+        throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
+    }
+  })}, t)
+  static UNDEFINED = new StronglyJSType(undefined)
+  static NULL = new StronglyJSType(null, 'null', (o) => o === null)
+}
 class StronglyJS {
-  static #TYPES = {
-    __proto__: null,
-    NUMBER: new StronglyJSType(0, 'number', (o) => typeof o === 'number' || o instanceof Number),
-    BIGINT: new StronglyJSType(0n),
-    NUMERICAL: new StronglyJSType(0, 'numerical', (o) => typeof o === 'number' || typeof o === 'bigint' || o instanceof Number),
-    INTEGER: new StronglyJSType(0, 'integer', Number.isInteger),
-    BOOLEAN: new StronglyJSType(false, 'boolean', (o) => typeof o === 'boolean' || o instanceof Boolean),
-    STRING: new StronglyJSType('', 'string', (o) => typeof o === 'string' || o instanceof String),
-    SYMBOL: new StronglyJSType(undefined, 'symbol', (o) => typeof o === 'symbol'),
-    ARRAY: new StronglyJSType([], 'array', (o) => o instanceof Array),
-    REGEXP: new StronglyJSType(/.*/g, 'regexp', (o) => o instanceof RegExp),
-    ELEMENT: new StronglyJSType(undefined, 'element', (o) => o instanceof HTMLElement),
-    FUNCTION: new StronglyJSType(function() {}),
-    ASYNCFUNCTION: new StronglyJSType(async function() {}, 'async function', (o) => o instanceof (async function () {}).constructor),
-    GENERATORFUNCTION: new StronglyJSType(function*() {}, 'generator function', (o) => o instanceof (function* () {}).constructor),
-    OBJECT: new StronglyJSType({}),
-    SIMPLEOBJECT: new StronglyJSType({}, 'simple object', (o) => Object.prototype.isPrototypeOf(o)),
-    ANY: new StronglyJSType({}, 'any', (o) => true),
-    ARRAYOF: (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i))),
-    NULLABLE: (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o)),
-    TUPLEOF: (...t) => new StronglyJSType(t.map(o => o.fallback), t.map(o => o.name).join(', ') + ' tuple', (o) => o instanceof Array && t.every((i, n) => i.allows(o[n])),
-    function(l) {return new Proxy(l, {
-      set: (o, p, v) => {
-          let i = parseInt(p);
-          if(Number.isInteger(i) && i < this.data.length && i > -1)
-            if(this.data[i].allows(v)) o[p] = v;
-            else throw new TypeError(`Value '${StronglyJSType.valueAsString(v)}' is not assignable to type '${this.data[i].name}'`);
-          else throw new TypeError(`Cannot modify property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
-      },
-      deleteProperty: (o, p) => {
-          throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
-      }
-    })}, t),
-    UNDEFINED: new StronglyJSType(undefined),
-    NULL: new StronglyJSType(null, 'null', (o) => o === null)
-  }
-  static get TYPES() {return {...this.#TYPES}}
   static defineProperty(on, name, type, value = type.fallback) {
     if(!type.allows(value)) throw new TypeError(`Default value '${StronglyJSType.valueAsString(value)}' is not assignable to type '${type.name}'`);
     Object.defineProperty(on, name, {
