@@ -23,6 +23,7 @@ SOFTWARE.
 */
 class StronglyJSType {
   #f; #n; #t; #w; #d;
+  static valueAsString(o) { try { return `${o}`; } catch { return 'unknown'; } }
   constructor(fallback, name = typeof fallback, test = (o) => typeof o === typeof fallback, wrapper = (o) => o, data = {}) {
     if(typeof name !== 'string') throw new TypeError(`Cannot convert '${name?.toString?.() ?? 'unknown'}' to 'string'`);
     if(typeof test !== 'function') throw new TypeError(`Cannot convert '${test?.toString?.() ?? 'unknown'}' to 'function'`);
