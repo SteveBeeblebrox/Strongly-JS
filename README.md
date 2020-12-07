@@ -39,3 +39,7 @@ Strongly typed functions can be created using the static method `defineFunction`
 Strongly typed properties can be created using the static method `defineProperty` inside of `StronglyJS`.
 ### Creation
 #### Arguments
++ `on`: This argument is the object to define the property on. `globalThis` can be used here to define a global property.
++ `name`: This argument is the name of the property to define as a string.
++ `type`: This is the StronglyJSType of the property.
++ `value`: This optional argument specifies a starting value for this property. If not provided, the property's type's default value is used.
