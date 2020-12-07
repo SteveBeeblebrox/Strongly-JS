@@ -30,6 +30,11 @@ Complex types are actually just helper functions that give more control over all
 ### Creation
 Strongly typed functions can be created using the static method `defineFunction` inside of `StronglyJS`.
 #### Arguments
++ `on`: This argument is the object to define the function on. `globalThis` can be used here to define a global function.
++ `name`: This argument is the name of the function to define as a string.
++ `func`: This is the actual body of the function as a lambda or function.
++ `argTypes`: The argument types are an array of StronglyJSTypes in the order that they should be passed to the function.
++ `returnType`: The return type is a StronglyJSType that the function should return.
 ## Strongly Typed Properties
 Strongly typed properties can be created using the static method `defineProperty` inside of `StronglyJS`.
 ### Creation
