@@ -35,7 +35,9 @@ Strongly JS allows users to define new types in addition to the built-in types a
 + `name`: This argument is the name of the type as a string. The name will show up in error messages.
 + `test`: This is a function used to determine if a value is allowed for this type. It is given the value in question and should return true or false depending on if that value is allowed for this type.
 + `wrapper`: This argument is a function that can be used to wrap or modify the result of getting the value of any property or function of this type. It is given the original value as a single parameter and should return the new value. The wrapper argument can be used with Proxys to control operations on the values within a strongly typed variable.
-+ `data`: The data argument can be used to store whatever other information about the type may be needed. This argument should be an object. Other function passed in the constructor that need to access the data should use the function syntax instead of the lambda syntax so they have access to `this`.
++ `data`: The data argument can be used to store whatever other information about the type may be needed. This argument should be an object. Other function passed in the constructor that need to access the data should use the function syntax instead of the lambda syntax so they have access to `this`.  
+  
+Not all of these arguments are needed. In most cases only `fallback`, `name`, and `test` are required to make a type (`wrapper` and `data` are usually used in things like the `TUPLEOF` type where values inside the object must be managed as well as the object itself).
 ## Strongly Typed Functions
 ### Creation
 Strongly typed functions can be created using the static method `defineFunction` inside of `StronglyJS`.
