@@ -62,7 +62,20 @@ class StronglyJSTypes {
   static OBJECT = new StronglyJSType({})
   static SIMPLEOBJECT = new StronglyJSType({}, 'simple object', (o) => Object.prototype.isPrototypeOf(o))
   static ANY = new StronglyJSType({}, 'any', (o) => true)
-  static ARRAYOF = (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i)))
+  static ARRAYOF = (t) => new StronglyJSType([], t.name + ' array', (o) => o instanceof Array && o.every((i) => t.allows(i)),
+  function(l) {return new Proxy(l, {
+    set: (o, p, v) => {
+        let i = parseInt(p);
+        if(Number.isInteger(i) && i > -1)
+          if(this.data.allows(v)) return o[p] = v, true;
+          else throw new TypeError(`Value '${StronglyJSType.valueAsString(v)}' is not assignable to type '${this.data.name}'`);
+        else if(p === 'length') return o[p] = v, true;
+        else throw new TypeError(`Cannot modify property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
+    },
+    deleteProperty: (o, p) => {
+        throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
+    }
+  })}, t)
   static NULLABLE = (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o))
   static TUPLEOF = (...t) => new StronglyJSType(t.map(o => o.fallback), t.map(o => o.name).join(', ') + ' tuple', (o) => o instanceof Array && t.every((i, n) => i.allows(o[n])),
   function(l) {return new Proxy(l, {
