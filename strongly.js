@@ -73,7 +73,9 @@ class StronglyJSTypes {
         else throw new TypeError(`Cannot modify property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
     },
     deleteProperty: (o, p) => {
-        throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
+        let i = parseInt(p);
+        if(!Number.isInteger(i)) throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
+        else return o.splice(i, 1), false;
     }
   })}, t)
   static NULLABLE = (t) => new StronglyJSType(null, 'nullable ' + t.name, (o) => o === null || t.allows(o))
@@ -87,9 +89,7 @@ class StronglyJSTypes {
         else throw new TypeError(`Cannot modify property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
     },
     deleteProperty: (o, p) => {
-        let i = parseInt(p);
-        if(!Number.isInteger(i)) throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
-        else return o.splice(i, 1), false;
+        throw new TypeError(`Cannot delete property '${StronglyJSType.valueAsString(p)}' of '${this.name}'`);
     }
   })}, t)
   static UNDEFINED = new StronglyJSType(undefined)
