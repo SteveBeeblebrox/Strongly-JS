@@ -42,6 +42,7 @@ class StronglyJSType {
 }
 class StronglyJSTypes {
   static NUMBER = new StronglyJSType(0, 'number', (o) => typeof o === 'number' || o instanceof Number)
+  static NUMBERRANGEOF = (a, b) => new StronglyJSType(a, 'number range between ' + a + ' and ' + b, (o) => this.NUMBER.allows(o) && o >= a && o <= b)
   static BIGINT = new StronglyJSType(0n)
   static NUMERICAL = new StronglyJSType(0, 'numerical', (o) => typeof o === 'number' || typeof o === 'bigint' || o instanceof Number)
   static INTEGER = new StronglyJSType(0, 'integer', Number.isInteger)
