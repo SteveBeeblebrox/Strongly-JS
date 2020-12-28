@@ -51,6 +51,7 @@ class StronglyJSTypes {
   static INTEGERRANGEOF = (a, b) => new StronglyJSType(a, 'integer range between ' + a + ' and ' + b, (o) => this.INTEGER.allows(o) && o >= a && o <= b)
   static BOOLEAN = new StronglyJSType(false, 'boolean', (o) => typeof o === 'boolean' || o instanceof Boolean)
   static STRING = new StronglyJSType('', 'string', (o) => typeof o === 'string' || o instanceof String)
+  static CHARACTER = new StronglyJSType('\u0000', 'character', (o) => (typeof o === 'string' || o instanceof String) && o.length === 1)
   static SYMBOL = new StronglyJSType(undefined, 'symbol', (o) => typeof o === 'symbol')
   static ARRAY = new StronglyJSType([], 'array', (o) => o instanceof Array)
   static REGEXP = new StronglyJSType(/.*/g, 'regexp', (o) => o instanceof RegExp)
