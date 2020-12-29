@@ -28,6 +28,10 @@ Complex types are actually just helper functions that give more control over all
 + `ARRAYOF`: Unlike the `ARRAY` type which allows an array containing any values, the `ARRAYOF` complex type restricts what values the array can contain based off of the type passed to it. In addition to reassigning the whole array, other operations such as modifiying part of it at an index are also subject to type checking.
 + `NULLABLE`: This complex type allows `null` or whatever value is passed to it.
 + `TUPLEOF`: The tuple restricts the types of values in an array and keeps the length fixed. Additionally, unlike the `ARRAYOF` type, each value in a tuple can be assigned a seperate type. This is achieved by passing the types (in order) to the complex type. In addition to reassigning the whole array, other operations such as modifiying part of the tuple at an index are also subject to type checking.
++ `NUMBERRANGEOF`: This type allows any value that is a valid `NUMBER` value and is also between the two arguments inclusively.
++ `BIGINTRANGEOF`: This type allows any value that is a valid `BIGINT` value and is also between the two arguments inclusively.
++ `NUMERICALRANGEOF`: This type allows any value that is a valid `NUMERICAL` value and is also between the two arguments inclusively.
++ `INTEGERRANGEOF`: This type allows any value that is a valid `INTEGER` and is also between the two arguments inclusively.
 ### Custom Types
 #### Creation
 Strongly JS allows users to define new types in addition to the built-in types above. New types are created through the `StronglyJSType` constructor.
