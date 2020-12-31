@@ -8,7 +8,7 @@ Simple types are predefined filters that allow certain values.
 + `BIGINT`: This type allows any BigInt object.
 + `NUMERICAL`: This simple type allows any number or BigInt object (Including `NaN` and `Infinity`).
 + `INTEGER`: This type allows any number with no non-zero decimals (Does not allow `NaN` or `Infinity`).
-+ `BOOLEAN`: This type allows any true or false value or an expresion that evaluates to true or false.
++ `BOOLEAN`: This type allows any true or false value or an expression that evaluates to true or false.
 + `STRING`: This simple type allows any form of JavaScript string (Literal or object).
 + `CHARACTER`: This type allows any form of JavaScript string (Literal or object) with a length of 1.
 + `SYMBOL`: This type allows any symbol object.
@@ -24,10 +24,10 @@ Simple types are predefined filters that allow certain values.
 + `UNDEFINED`: This simple type allows only `undefined` or no value.
 + `NULL`: This type only allows `null`.
 #### Complex
-Complex types are actually just helper functions that give more control over allowed values. All of the following reuire one (or more) arguments. Complex types can be chained together.
-+ `ARRAYOF`: Unlike the `ARRAY` type which allows an array containing any values, the `ARRAYOF` complex type restricts what values the array can contain based off of the type passed to it. In addition to reassigning the whole array, other operations such as modifiying part of it at an index are also subject to type checking.
+Complex types are actually just helper functions that give more control over allowed values. All of the following require one (or more) arguments. Complex types can be chained together.
++ `ARRAYOF`: Unlike the `ARRAY` type which allows an array containing any values, the `ARRAYOF` complex type restricts what values the array can contain based off of the type passed to it. In addition to reassigning the whole array, other operations such as modifying part of it at an index are also subject to type checking.
 + `NULLABLE`: This complex type allows `null` or whatever value is passed to it.
-+ `TUPLEOF`: The tuple restricts the types of values in an array and keeps the length fixed. Additionally, unlike the `ARRAYOF` type, each value in a tuple can be assigned a seperate type. This is achieved by passing the types (in order) to the complex type. In addition to reassigning the whole array, other operations such as modifiying part of the tuple at an index are also subject to type checking.
++ `TUPLEOF`: The tuple restricts the types of values in an array and keeps the length fixed. Additionally, unlike the `ARRAYOF` type, each value in a tuple can be assigned a separate type. This is achieved by passing the types (in order) to the complex type. In addition to reassigning the whole array, other operations such as modifying part of the tuple at an index are also subject to type checking.
 + `NUMBERRANGEOF`: This type allows any value that is a valid `NUMBER` value and is also between the two arguments inclusively.
 + `BIGINTRANGEOF`: This type allows any value that is a valid `BIGINT` value and is also between the two arguments inclusively.
 + `NUMERICALRANGEOF`: This type allows any value that is a valid `NUMERICAL` value and is also between the two arguments inclusively.
